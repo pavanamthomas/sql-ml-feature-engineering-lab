@@ -97,7 +97,7 @@ source of truth is the SQL plus the tests.
 
 Data policy: [`docs/data_policy.md`](docs/data_policy.md).
 
-## Open questions
+## Remaining information-set bounds
 
 Event time is not ingest time: a late-arriving row with an old `txn_ts` still
 passes the sentinel test. DuckDB is not in CI. Time zones are not modelled.
