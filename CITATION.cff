@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: If you use this repository, please cite it as below.
+title: sql-ml-feature-engineering-lab
+authors:
+  - family-names: Thomas
+    given-names: Pavanam
+    email: thomaspavanam@gmail.com
+license: MIT
+repository-code: https://github.com/pavanamthomas/sql-ml-feature-engineering-lab
+url: https://github.com/pavanamthomas/sql-ml-feature-engineering-lab
+abstract: >
+  Point-in-time SQL feature engineering for relational event data.
+  The repository is a laboratory: synthetic customers, accounts, and
+  events are generated under a known DGP; correct queries are those
+  that use only information at or before a prediction cutoff; leaky
+  queries are checked with planted future-only sentinels.
+keywords:
+  - feature engineering
+  - SQL
+  - point-in-time
+  - temporal leakage
+  - window functions
+  - machine learning
+version: 0.1.0
+date-released: "2026-08-20"
