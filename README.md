@@ -13,9 +13,9 @@ study of real customers.
 
 Author: Dr. Pavanam Thomas ([GitHub](https://github.com/pavanamthomas), thomaspavanam@gmail.com).
 
-**Problem → formalization → assumptions → computation → validation → interpretation → limitations.**
+The object is the information set at a cutoff, not a catalogue of JOIN exercises.
 
-## Recruiter 90-Second Audit
+## Information set
 
 1. [`FLAGSHIP_POINT_IN_TIME_FAILURE.md`](FLAGSHIP_POINT_IN_TIME_FAILURE.md) — two pipelines, similar column names; one includes the future; in-sample logistic AUC inflates; a sentinel test catches the leak without the model.
 2. [`sql/correct/`](sql/correct/) versus [`sql/leaky/`](sql/leaky/) — read the time predicates, not the SELECT lists.
@@ -34,7 +34,7 @@ python scripts/run_all.py
 
 Python 3.11 or newer. SQLite is the stdlib dialect. DuckDB is optional and is not in CI.
 
-## Technical Decisions I Can Defend
+## Query design
 
 - **Event time \(\le\) cutoff as the information set.** Checkable on a known DGP. Not a full CDC story (ingest time is out of scope; see ROADMAP).
 - **SQL files as the artefact.** Tests execute `sql/correct/*.sql` and `sql/leaky/*.sql`. The query text is what a reviewer should argue with.
@@ -44,7 +44,7 @@ Python 3.11 or newer. SQLite is the stdlib dialect. DuckDB is optional and is no
 - **In-sample logistic on the flagship.** If leakage inflates fit for a linear model, a more flexible model is not needed to see the artefact. The AUC is a diagnostic, not a leaderboard.
 - **EXPLAIN QUERY PLAN, not milliseconds.** [`docs/query_performance.md`](docs/query_performance.md).
 
-## Deliberate Failure Cases
+## Designed leakages
 
 | Case | What goes wrong |
 | --- | --- |
@@ -59,7 +59,7 @@ Python 3.11 or newer. SQLite is the stdlib dialect. DuckDB is optional and is no
 
 Leaky SQL: join without time, label-window `+30 days`, label-day `+1 day`, date truncation at midnight, `LEAD`. Details: [`docs/failures_and_corrections.md`](docs/failures_and_corrections.md).
 
-## Independent Validation
+## SQL / pandas parity
 
 Tests check properties:
 
@@ -72,7 +72,7 @@ Tests check properties:
 - Ranking identities on `rank_demo`.
 - Leaky in-sample AUC exceeds correct AUC on this DGP.
 
-## Reproduce Everything
+## Reproducibility
 
 ```bash
 python -m pip install -e .
@@ -86,7 +86,7 @@ python scripts/generate_data.py   # optional: data/lab.sqlite
 `outputs/tables/explain_plans.txt`. Those files are regenerable. The
 source of truth is the SQL plus the tests.
 
-## Limitations and Non-Claims
+## Known limitations
 
 - The DGP is stylised. It is a tool for checking queries, not a model of a bank.
 - Point-in-time on **event** timestamps is not point-in-time on **ingest** time.
@@ -97,25 +97,11 @@ source of truth is the SQL plus the tests.
 
 Data policy: [`docs/data_policy.md`](docs/data_policy.md).
 
-## Interview Questions This Repository Naturally Raises
+## Open questions
 
-- If a cutoff is `2025-07-01 00:00:00`, what is the difference between `txn_ts <= cutoff_ts` and `date(txn_ts) <= date(cutoff_ts)`?
-- When is `LAG(y)` a valid feature and when is it target leakage?
-- Why is `LEAD` of the next transaction a problem even if you never select the label column?
-- How would you test a Spark or dbt pipeline for the same information-set claim without a planted sentinel?
-- `LAST_VALUE` under the default window frame: what value do you actually get?
-- A customer has no transactions before cutoff. Should recency be 0 or NULL? What does each choice tell a linear model?
-- You index `(customer_id, txn_ts)`. What would you look for in `EXPLAIN QUERY PLAN`, and what would you refuse to claim?
-- GROUP BY customer spend vs `SUM(amount) OVER (PARTITION BY customer_id)`: which grain does a txn-level fraud rule need?
-- `RANK` vs `ROW_NUMBER` for “top 1 session per day” when two sessions share a timestamp.
-- Event time vs processing time: which failure in this repository is still untested?
-- If leaky AUC is 0.95 and correct AUC is 0.62, what sentence belongs in a model review, and what sentence does not?
-- How would `FILTER (WHERE ...)` and a `CASE` aggregate diverge on NULL amounts?
-- Recursive referral depth: what breaks if `referred_by` can point at a descendant?
-- You must port `DISTINCT ON (txn_id)` to SQLite. What is the exact window equivalent, including the tie-break?
-- Why is a 30-day **row** frame not a 30-day **calendar** feature?
-- Can a query pass the sentinel test and still leak the label? Give a construction.
-- What changes if labels are observed at `label_ts` but features were built at `cutoff_ts` with delayed events that carry old timestamps?
+Event time is not ingest time: a late-arriving row with an old `txn_ts` still
+passes the sentinel test. DuckDB is not in CI. Time zones are not modelled.
+See `ROADMAP.md`.
 
 ## Repository structure
 
