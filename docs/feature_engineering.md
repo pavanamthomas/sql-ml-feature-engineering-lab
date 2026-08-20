@@ -30,7 +30,7 @@ share this policy (`sqlfeat.pandas_features.FILLNA`).
 | `referral_depth` | recursive CTE | DAG by construction |
 | `sentinel_spend` | diagnostic | must be 0 on correct queries |
 
-## Competency map
+## SQL constructs used
 
 Each construct is in a query that tests execute, not a comment.
 
