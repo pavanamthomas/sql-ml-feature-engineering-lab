@@ -1,4 +1,4 @@
-"""SQL competencies appear in laboratory query files that tests execute."""
+"""SQL constructs used in the laboratory appear in query files that tests execute."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ def _sql_corpus() -> str:
     return "\n".join(parts).upper()
 
 
-def test_competency_tokens_present_in_sql_files() -> None:
+def test_sql_construct_tokens_present_in_sql_files() -> None:
     corpus = _sql_corpus()
     required = [
         "INNER JOIN",
@@ -55,7 +55,7 @@ def test_competency_tokens_present_in_sql_files() -> None:
     assert missing == []
 
 
-def test_competency_queries_execute(conn) -> None:
+def test_sql_construct_queries_execute(conn) -> None:
     correct_training_table(conn)
     exists_prior(conn)
     groupby_vs_window(conn)
