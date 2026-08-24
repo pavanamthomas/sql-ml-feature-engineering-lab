@@ -1,35 +1,8 @@
-"""Flagship comparison: leaky versus correct training tables.
+"""In-sample logistic fit on leaky versus correct training tables.
 
-Problem: two pipelines can emit similarly named columns while one
-includes the label window. Apparent classification performance then
-rises without any change in the estimator.
-
-Assumptions: ``y`` is a completed order in the 30 days after cutoff;
-the leaky table's ``spend_30`` / ``txn_count_30`` include post-cutoff
-transactions; the model is in-sample logistic regression on a fixed
-column list. In-sample AUC is a diagnostic of leakage, not a claim of
-out-of-sample skill.
-
-Why logistic regression: it is a linear baseline. If leakage inflates
-fit here, a more flexible model is not required to see the artefact.
-
-Alternative: report only the sentinel test. That catches planted rows
-but does not show why a reviewer might believe the leaky table.
-
-What can go wrong: quoting the leaky AUC as model quality; using
-``lead_y`` as a feature and calling it a covariate.
-
-How checked: sentinel spend is zero on the correct table at the
-primary cutoff and positive on the leaky table there; leaky AUC
-exceeds correct AUC on this DGP.
-
-What can be concluded: on this DGP, including post-cutoff transactions
-inflates in-sample AUC relative to the point-in-time table.
-
-What cannot: a real-world lift, a causal effect of any feature, or a
-ranking of production models.
+AUC is used only as a leakage diagnostic. The two tables share column names
+while one includes the label window.
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

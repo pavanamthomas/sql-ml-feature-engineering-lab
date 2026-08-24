@@ -1,32 +1,8 @@
-"""Temporal leakage sentinels.
+"""Future-only sentinel rows as an information-set detector.
 
-Problem: a training table can look well-formed and still include events
-that occurred after the prediction cutoff. A planted future-only row is
-an independent detector.
-
-Assumptions: every sentinel transaction has ``is_sentinel = 1`` and
-``txn_ts`` strictly after that customer's primary cutoff; amount equals
-``SENTINEL_AMOUNT``.
-
-Why a sentinel: comparing two SQL strings by eye does not prove an
-information-set claim. A row that exists only in the future does.
-
-Alternative: audit query text with a linter. Useful, not sufficient;
-this test executes the query.
-
-What can go wrong: planting sentinels before cutoff; using the sentinel
-as a model feature and calling the AUC a skill result.
-
-How checked: correct tables have ``sentinel_spend == 0`` on every row;
-leaky tables have ``sentinel_spend == SENTINEL_AMOUNT`` for planted
-customers at the primary cutoff.
-
-What can be concluded: the named correct query does not see these
-planted rows on this DGP.
-
-What cannot: that an unseen production query is leak-free.
+Amount 99999.0 exists only after cutoff. Correct SQL must not see it;
+leaky joins on customer_id alone must.
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -1,38 +1,8 @@
-"""Pandas reimplementation of the key point-in-time features.
+"""Independent Pandas calculation of the point-in-time features.
 
-Problem: an independent implementation of the same estimand, used to
-check the SQL.
-
-Assumptions: timestamps parse as naive datetime; windows are half-open
-on the left and closed on the right at cutoff, matching
-``txn_ts <= cutoff_ts AND txn_ts > cutoff_ts - N days``.
-
-Fillna policy (locked by tests):
-- counts fill 0
-- spend fills 0.0
-- recency_days stays NaN when there is no prior transaction
-- tenure_days is never filled; every customer has a signup_ts
-
-Why pandas: it is a second engine, not a second copy of the SQL parser.
-
-Alternative: DuckDB as a second SQL engine. CI now runs a compact
-SQLite/DuckDB/Pandas fixture (`src/sqlfeat/cross_engine.py`). The Pandas
-path here remains the independent check for the main laboratory SQL.
-
-What can go wrong: ``merge`` without a time predicate reproduces the
-leaky join. Inclusive vs exclusive window edges drift from SQLite
-``datetime(cutoff, '-N days')``.
-
-How checked: sort on ``prediction_id``, then ``assert_allclose`` on
-numeric columns after the fillna policy.
-
-What can be concluded: SQL and pandas agree on this DGP for the named
-columns.
-
-What cannot: that either implementation is correct for a warehouse whose
-clock, timezone, or late-arriving facts differ from this DGP.
+Does not parse the SQL. Counts and spend fill 0; recency stays NaN with no
+history. A merge without a time predicate recreates the leaky join.
 """
-
 from __future__ import annotations
 
 from datetime import timedelta

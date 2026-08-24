@@ -1,36 +1,8 @@
-"""Synthetic relational event DGP for point-in-time feature checks.
+"""Synthetic customers, accounts, and events with a known cutoff.
 
-Problem: feature queries over customers, accounts, and events need a
-known information set at each prediction cutoff, including planted
-future-only rows that a correct query must not see.
-
-Assumptions: timestamps are naive UTC ISO strings at second precision;
-SQLite ``datetime`` / ``julianday`` arithmetic is valid on that format;
-referrals form a DAG (``referred_by < customer_id``); the binary label
-is a completed order in ``(cutoff_ts, cutoff_ts + 30 days]``.
-
-Why this method: only a fully observed DGP can prove that a query did
-not read the future. A public retail dump does not label the
-information set at t.
-
-Alternative: replay an observational log and argue from code review
-alone. That cannot produce a sentinel test.
-
-What can go wrong: sentinels timestamped at or before cutoff make the
-exclusion test a false alarm. Defining y from the same post-cutoff
-orders that a leaky spend window includes will inflate fit metrics —
-that inflation is the demonstration, not a claim of skill.
-
-How checked: two generations with seed 2026 must match; every sentinel
-row has ``txn_ts > cutoff_ts``; correct SQL yields ``sentinel_spend = 0``.
-
-What can be concluded: on this DGP, a named query either includes or
-excludes post-cutoff rows.
-
-What cannot: that a production warehouse is leak-free, or that a
-classifier trained here generalises to real customers.
+Planted post-cutoff rows exist so a correct query can be shown to exclude
+them. Seed 2026 regenerates the DGP; this is not observational microdata.
 """
-
 from __future__ import annotations
 
 from datetime import datetime, timedelta

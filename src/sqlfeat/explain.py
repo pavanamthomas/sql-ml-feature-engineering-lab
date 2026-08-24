@@ -1,29 +1,8 @@
-"""SQLite EXPLAIN QUERY PLAN helpers.
+"""SQLite EXPLAIN QUERY PLAN text, not wall-clock latency.
 
-Problem: record whether a point-in-time join is planned as a scan or as
-an index search. The artefact is the plan text, not a latency number.
-
-Assumptions: SQLite ``EXPLAIN QUERY PLAN`` vocabulary (SCAN, SEARCH,
-USING INDEX, COVERING INDEX) is the object of interest. Plans can
-change across SQLite versions.
-
-Why not wall-clock times: they are machine-specific and are not a
-property of the query. This laboratory does not invent production
-latency.
-
-Alternative: ``EXPLAIN`` (opcodes) or a PostgreSQL ``EXPLAIN ANALYZE``
-on another engine. Out of scope for CI.
-
-How checked: tests assert that creating ``idx_txn_customer_ts`` changes
-the plan string for the probe query to mention that index.
-
-What can be concluded: on this SQLite build, the named index is used
-in the plan after it is created.
-
-What cannot: a millisecond budget, or that PostgreSQL will choose the
-same join order.
+Plans can change across SQLite versions. Index presence is checked by
+whether the plan string changes, not by timing.
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

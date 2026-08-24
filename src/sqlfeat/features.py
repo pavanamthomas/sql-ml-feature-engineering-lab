@@ -1,27 +1,8 @@
-"""Run the laboratory SQL feature queries.
+"""Execute the SQL files under sql/correct and sql/leaky.
 
-Problem: assemble a point-in-time training table and the named case
-queries from files under ``sql/``.
-
-Assumptions: the connection already holds the laboratory schema and DGP;
-SQLite understands the window and FILTER syntax used in those files.
-
-Why files rather than inline strings: the SQL is the artefact under
-review. Tests execute the same files a reviewer reads.
-
-Alternative: an ORM feature store. That would hide the predicates this
-laboratory is designed to inspect.
-
-What can go wrong: a query that compiles is not therefore leak-free.
-
-How checked: sentinel tests, pandas parity, and ranking/dedup identities.
-
-What can be concluded: the named files produce tables on this DGP.
-
-What cannot: that the same text is correct on PostgreSQL without the
-dialect notes, or that a production pipeline matches these files.
+The query text is the artefact. A statement that compiles is not therefore
+point-in-time safe; sentinel and pandas-parity tests decide that.
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass
