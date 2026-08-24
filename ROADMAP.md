@@ -1,6 +1,6 @@
 # Roadmap
 
-Current as of August 2026.
+Engine and event-time limits remaining after the compact DuckDB fixture entered CI (August 2026).
 
 ## In scope now
 

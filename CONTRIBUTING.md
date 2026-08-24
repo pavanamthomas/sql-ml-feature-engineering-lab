@@ -1,12 +1,10 @@
-# Working on this laboratory
+# Contributing to the SQL feature lab
 
-This is a personal research repository. The useful unit of work is a limitation, a failed specification, or a tighter check.
+Useful work is a time predicate that actually withholds post-cutoff events, or a sentinel that fires without using the label column.
 
-1. Open or update a GitHub issue. Name the estimand, the cutoff, and the mismatch (usually a time predicate).
-2. If the claim is numerical, add a test that fails on `main` before the change and passes after.
-3. Keep commits narrow. Do not bundle formatting with a scientific change.
-4. Comment invariants and failure risks, not obvious syntax.
+1. Open an issue naming the cutoff, the grain, and the leak (usually a missing `txn_ts <= cutoff`).
+2. Add a failing test before a numerical change.
+3. Keep commits to one information-set claim.
+4. Comment as-of joins and window frames, not obvious SELECT lists.
 
-Recorded failures: `docs/failures_and_corrections.md`.  
-Queue and bounds: `ROADMAP.md` and GitHub Issues.  
-Checks: `python -m pytest` and `.github/workflows/ci.yml`.
+See `FLAGSHIP_POINT_IN_TIME_FAILURE.md`, `docs/cross_engine_parity.md`, `ROADMAP.md`, and `.github/workflows/ci.yml`.

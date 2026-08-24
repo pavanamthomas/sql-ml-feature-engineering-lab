@@ -1,12 +1,7 @@
-# Laboratory process
+# How this lab records work
 
-Work is recorded in this order:
+Feature claims here are claims about the information set at a cutoff. Write the time predicate and the grain before changing SQL or the Pandas twin.
 
-1. A failure, limitation, or information-set question is written down (GitHub issue and, when it is part of the teaching design, `docs/failures_and_corrections.md`).
-2. If the claim is numerical, a test is added that would fail if the claim were reversed.
-3. Code or documentation changes in a commit that states the reason, not the file list.
-4. CI on `main` must pass. Passing CI means the laboratory still runs under the documented commands. It is not evidence about a production warehouse.
+If the claim is numerical, add a test that would fail if a planted `99999.0` appeared under a correct as-of join. CI on `main` runs SQLite, a compact DuckDB fixture, and Pandas on the same object. Passing CI is not PostgreSQL equivalence and not a warehouse migration. Event time is not ingest time.
 
-The public queue is GitHub Issues. The bound on that queue is `ROADMAP.md`.
-
-Do not treat a green badge as a correction. A correction is a change in a time predicate, a grain, or an interpretation, locked by a test or by an explicit limitation statement.
+Issues are the public queue. `ROADMAP.md` is the bound. A green badge is not evidence that every `sql/correct/*.sql` file was executed in DuckDB.

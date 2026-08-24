@@ -1,12 +1,12 @@
 ---
-name: Validation gap
-about: A property that should be checked, or a check that is too weak
-title: "[validation] "
+name: As-of join gap
+about: A time predicate or grain that still admits post-cutoff events
+title: "[check] "
 labels: ["validation"]
 ---
 
 ## Claim that is insufficiently checked
 
-## DGP or identity that would expose the gap
+## Planted future value or LEAD that would expose the gap
 
-## Proposed check
+## Proposed SQL / Pandas test

@@ -1,14 +1,14 @@
 ---
-name: Correction
-about: A documented failure and the correction that follows from it
+name: Point-in-time correction
+about: A leaky join and the predicate that restores the cutoff
 title: "[correction] "
 labels: ["correction"]
 ---
 
-## What failed
+## How future information entered without selecting the label
 
-## Diagnostic or counterexample
+## Sentinel or window diagnostic
 
-## Correction (estimator, specification, or interpretation)
+## Corrected time predicate
 
-## What remains unknown
+## What remains unknown without an ingest-time column

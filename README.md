@@ -6,7 +6,7 @@ Point-in-time SQL feature engineering for relational event data, with deliberate
 
 This repository asks one question: **does a feature use only information that was available at the prediction cutoff?** It is not a beginner JOIN catalogue, a feature-store product, or an empirical study of real customers.
 
-Author: Dr. Pavanam Thomas ([GitHub](https://github.com/pavanamthomas), thomaspavanam@gmail.com).
+Dr. Pavanam Thomas · [pavanamthomas](https://github.com/pavanamthomas) · thomaspavanam@gmail.com
 
 The object is the information set at a cutoff. Model performance is secondary to whether the feature was legally computable at that time.
 
@@ -105,7 +105,7 @@ sql-ml-feature-engineering-lab/
 └── outputs/
 ```
 
-Related laboratories: [computational-ml-stem-problem-forge](https://github.com/pavanamthomas/computational-ml-stem-problem-forge), [statistical-reasoning-validation](https://github.com/pavanamthomas/statistical-reasoning-validation), and [time-series-forecasting-lab](https://github.com/pavanamthomas/time-series-forecasting-lab).
+Independent-check discipline used on the SQL sentinels: [computational-ml-stem-problem-forge](https://github.com/pavanamthomas/computational-ml-stem-problem-forge). Walk-forward information sets in a different domain: [time-series-forecasting-lab](https://github.com/pavanamthomas/time-series-forecasting-lab).
 
 ## Citation
 

@@ -1,14 +1,14 @@
 ---
-name: Limitation
-about: Record a bound on what this laboratory identifies or computes
-title: "[limitation] "
+name: Information-set bound
+about: A warehouse, engine, or event-time claim this lab does not make
+title: "[bound] "
 labels: ["limitation"]
 ---
 
-## What is limited
+## Feature claim that is out of reach
 
-## Why this is a bound rather than a bug
+## Cutoff, grain, and engine (SQLite / DuckDB / Pandas)
 
-## What would be required to go further
+## Why compact-fixture DuckDB is not PostgreSQL
 
-## Related tests or notes
+## What a sentinel catch does not license about ingest time
