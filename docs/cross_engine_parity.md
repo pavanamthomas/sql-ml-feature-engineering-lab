@@ -33,3 +33,5 @@ A second fixture checks `ROW_NUMBER`, `RANK`, and `DENSE_RANK` on a known tie pa
 - feature-store or warehouse claims.
 
 The purpose is not to add another database name to the README. The purpose is to make one information-set definition survive a second SQL engine and an independent non-SQL calculation.
+
+The DuckDB path executes the compact fixture SQL in `src/sqlfeat/cross_engine.py`. It does not re-run every file under `sql/correct/`. Those files remain SQLite-plus-Pandas checks. Cross-engine agreement on this fixture is not a claim that the main laboratory SQL has been ported to DuckDB or PostgreSQL.

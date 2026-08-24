@@ -15,8 +15,9 @@ Fillna policy (locked by tests):
 
 Why pandas: it is a second engine, not a second copy of the SQL parser.
 
-Alternative: a third SQL dialect (DuckDB). Optional locally; not required
-in CI.
+Alternative: DuckDB as a second SQL engine. CI now runs a compact
+SQLite/DuckDB/Pandas fixture (`src/sqlfeat/cross_engine.py`). The Pandas
+path here remains the independent check for the main laboratory SQL.
 
 What can go wrong: ``merge`` without a time predicate reproduces the
 leaky join. Inclusive vs exclusive window edges drift from SQLite

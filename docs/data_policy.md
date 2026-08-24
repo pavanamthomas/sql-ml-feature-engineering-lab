@@ -33,6 +33,7 @@ commands regenerates them.
 ## Third-party code
 
 The package depends on NumPy, pandas, scikit-learn, matplotlib, and pytest
-under their licences. DuckDB is optional and is not required in CI. This
-repository does not copy textbook exercises or copyrighted course SQL into
-`sql/` or `docs/`.
+under their licences. CI installs the DuckDB extra and runs the compact
+cross-engine fixture in `tests/test_cross_engine_parity.py`. That is not a
+PostgreSQL claim. This repository does not copy textbook exercises or
+copyrighted course SQL into `sql/` or `docs/`.
