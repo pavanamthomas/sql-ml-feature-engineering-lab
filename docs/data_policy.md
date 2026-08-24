@@ -1,7 +1,6 @@
 # Data policy
 
-This repository is a SQL feature-engineering laboratory. It does not ship
-observational microdata, bank extracts, or proprietary files.
+No customer extracts. Tables are simulated event streams so a missing `txn_ts <= cutoff` can be shown to admit a planted future value.
 
 ## What is used
 

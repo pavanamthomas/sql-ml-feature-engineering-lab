@@ -1,1 +1,5 @@
 blank_issues_enabled: true
+contact_links:
+  - name: Point-in-time bounds
+    url: https://github.com/pavanamthomas/sql-ml-feature-engineering-lab/blob/main/ROADMAP.md
+    about: Event time vs ingest time, DuckDB fixture scope, PostgreSQL.
