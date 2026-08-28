@@ -14,7 +14,7 @@ python -m pytest
 python scripts/run_all.py
 ```
 
-Python 3.11+. SQLite is still the stdlib path for the main lab. DuckDB now runs in CI on that compact fixture.
+Python 3.11+. SQLite is the stdlib path and the tests that do not need DuckDB run after `pip install -e .`. The DuckDB comparisons need the extra; they are skipped if it is not installed. CI installs `.[duckdb]`.
 
 ## Query design
 
