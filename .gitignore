@@ -51,8 +51,4 @@ Thumbs.db
 *.log
 .idea/
 .vscode/
-.cursor/
-.claude/
-.codex/
-.aider*
 *.swp
